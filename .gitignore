@@ -1,0 +1,19 @@
+# Terraform cache
+.terraform/
+
+# Terraform lock file (optional to ignore, many teams keep it)
+# .terraform.lock.hcl
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+
+# Terraform variables
+terraform.tfvars
+
+# crash logs
+crash.log
+
+# OS files
+.DS_Store
+Thumbs.db

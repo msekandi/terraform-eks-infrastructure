@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+  environment {
+    AWS_REGION = 'us-east-1'
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        git branch: "${env.BRANCH_NAME}", url: 'https://github.com/msekandi/eks-cluster_with_terraform.git'
+      }
+    }
+
+    stage('Terraform Init') {
+      steps {
+        sh 'terraform init'
+      }
+    }
+
+    stage('Terraform Plan') {
+      steps {
+        sh "terraform plan -var-file=environments/${env.BRANCH_NAME}.tfvars"
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        script {
+          if (env.BRANCH_NAME == "prod") {
+            input message: "Approve production deployment?"
+          }
+          sh "terraform apply -auto-approve -var-file=environments/${env.BRANCH_NAME}.tfvars"
+        }
+      }
+    }
+  }
+}
