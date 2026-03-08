@@ -8,7 +8,7 @@ pipeline {
 
     stage('Checkout') {
       steps {
-        git branch: "${env.BRANCH_NAME}", url: 'https://github.com/msekandi/eks-cluster_with_terraform.git'
+        git branch: "${env.BRANCH_NAME}", url: 'https://github.com/msekandi/terraform-eks-infrastructure.git'
       }
     }
 
